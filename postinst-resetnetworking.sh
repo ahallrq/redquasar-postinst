@@ -31,8 +31,8 @@ rm -f /etc/wireguard/*
 
 # Firewall
 echo "#Resetting firewalld to defaults..."
-rm /etc/firewalld/zones/*
-cp /usr/lib/firewalld/zones/* /etc/firewalld/zones/
+rm -rf /etc/firewalld/zones/
+cp -r /usr/lib/firewalld/zones/ /etc/firewalld/
 firewall-cmd --complete-reload
 firewall-cmd --reset
 ) | yad_progress_pulsate "Post Install" "Preparing post-install deployment scripts..." "clock"
