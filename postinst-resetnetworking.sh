@@ -36,4 +36,4 @@ rm -rf /etc/firewalld/zones/
 cp -r /usr/lib/firewalld/zones/ /etc/firewalld/
 firewall-cmd --complete-reload
 firewall-cmd --reset
-) | yad_progress_pulsate "Post Install" "Preparing post-install deployment scripts..." "clock"
+) | yad_progress_pulsate "Post Install" "Resetting system networking settings back to defaults." "clock"

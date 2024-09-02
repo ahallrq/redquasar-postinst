@@ -13,7 +13,7 @@ function exit_on_error() {
 ./postinst-setbg.sh
 ./postinst-preflightchecks.sh
 echo "100";
-) | yad_progress_pulsate "Post Install" "Preparing post-install deployment scripts..." "clock" & 
+) | yad_progress_pulsate "Post Install" "Preparing post-install deployment scripts..." "clock"
 
 ./postinst-resetnetworking.sh || exit_on_error "Failed to reset networking."
 ./postinst-deleteusers.sh || exit_on_error "Failed to reset users."
