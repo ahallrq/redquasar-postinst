@@ -10,6 +10,7 @@ source "postinst-yad.sh"
 # NetworkMangler
 echo "#Resetting NetworkManager to defaults..."
 nmcli connection delete $(nmcli -t -f UUID connection show)
+nmcli connection add type ethernet con-name "Ethernet" ifname '*' ipv4.method auto ipv6.method auto
 systemctl restart NetworkManager
 
 # Tailscale
