@@ -2,11 +2,9 @@
 
 source "postinst-yad.sh"
 
-trap "yad_message_ok 'Setup Error' 'An error has caused setup to fail and automatic deployment to stop.\nYour device will be restarted and setup will try again.' 'dialog-error'" EXIT
-
 function exit_on_error() {
   if [ $? -ne 0 ]; then
-    yad_message_ok "Setup Error" "$1" "dialog-error"
+    yad_message_ok "Setup Error" "An error has caused setup to fail and automatic deployment to stop.\n\n$1\n\nYour device will be restarted and setup will try again." "dialog-error"
     exit 1
   fi
 }
