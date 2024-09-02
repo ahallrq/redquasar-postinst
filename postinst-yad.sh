@@ -13,5 +13,6 @@ function yad_progress_pulsate() {
     yad --progress --title="$1" --text="$2" --image="$3" --pulsate ${YAD_AUTOKILLCLOSE} --width=$YAD_WIDTH
 }
 
-function yad_message_ok
-yad --image "$3 --title "$1" --button=Ok:0 --text "$2" --width="$YAD_WIDTH" 
+function yad_message_ok() {
+    yad --image "$3" --title "$1" --button=Ok:0 --text "$2" --width="$YAD_WIDTH" 
+}

@@ -25,14 +25,14 @@ for conf in /etc/wireguard/*.conf; do
     base_name=$(basename "$conf" .conf)
 
     # Attempt to disable and stop the corresponding wgquick@ service
-    systemctl disable --now "wgquick@$base_name"
+    systemctl disable --now "wg-quick@$base_name"
 done
 rm -f /etc/wireguard/*
 
 # Firewall
 echo "#Resetting firewalld to defaults..."
 rm /etc/firewalld/zones/*
-cp /usr/lib/firewalld/zones* /etc/firewalld/zones/
+cp /usr/lib/firewalld/zones/* /etc/firewalld/zones/
 firewall-cmd --complete-reload
 firewall-cmd --reset
 ) | yad_progress_pulsate "Post Install" "Preparing post-install deployment scripts..." "clock"
