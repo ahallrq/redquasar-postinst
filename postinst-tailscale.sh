@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source postinst-yad.sh
+
 # Run Tailscale up in the background, capturing output to a temp file
 TEMP_FILE=$(mktemp)
 
