@@ -17,4 +17,5 @@ echo "100";
 
 ./postinst-resetnetworking.sh || exit_on_error "Failed to reset networking."
 ./postinst-deleteusers.sh || exit_on_error "Failed to reset users."
+./postinst-tailscale.sh || exit_on_error "Failed to set up Tailscale."
 ./postinst-installpackages.sh || exit_on_error "Failed to install packages."
