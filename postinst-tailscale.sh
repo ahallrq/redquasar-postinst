@@ -6,27 +6,29 @@ source postinst-yad.sh
 TEMP_FILE=$(mktemp)
 
 # For some reason we can't catch tailscale's output with a standard 2>&1 redir. idk why
-script -fqc 'tailscale up --timeout 240s' "$TEMP_FILE" &
+script -fqc 'tailscale up --accept-routes --timeout 130s' "$TEMP_FILE" &
 
 # Wait for the login URL to appear in the logs
 TIMEOUT=120
-START_TIME=$(date +%s)
 AUTH_URL="https://login.tailscale.com/a"
-LOGIN_URL=""
 
 yad_message_ok "Tailscale" "Preparing to connect to Tailscale." "clock" --timeout=20 --no-buttons --no-escape
 PID=$!
 
-while kill -0 $PID 2>/dev/null && [ ! -z "$LOGIN_URL" ]; do
-    LOGIN_URL=$(grep -oP '(?<=https://login.tailscale.com/a/)[a-zA-Z0-9]+' "$TEMP_FILE")
+while kill -0 $PID 2>/dev/null && [ ! -z "$LOGIN_KEY" ]; do
+    LOGIN_KEY=$(grep -oP '(?<=https://login.tailscale.com/a/)[a-zA-Z0-9]+' "$TEMP_FILE")
 
     # Sleep briefly to avoid busy looping
     sleep 1
 done
 
-if [ ! -z "$LOGIN_URL" ]; then
+killall -9 yad
+
+if [ ! -z "$LOGIN_KEY" ]; then
         yad_message_ok "Error" "Failed to retrieve Tailscale login URL within timeout" "dialog-error" && exit 1
 fi
+
+FULL_AUTH_URL="$AUTH_URL/$LOGIN_KEY"
 
 # Generate QR code for the URL
 qrencode -o /tmp/qr_code.png "$FULL_URL"
@@ -41,9 +43,13 @@ yad --image="/tmp/qr_code.png" \
     --timeout-indicator=bottom \
     --no-escape --no-buttons --center &
 
+PID=$!
+
 while kill -0 $PID 2>/dev/null; do
     tailscale status | grep "Logged out."
-    if [ ! -z $? ]; do
+    if [ $? -ne 0 ]; then
+        killall -9 yad
+        yad_message_ok "Tailscale Login Successful" "Successfully logged into the Tailscale network" "dialog-info" &
         exit 0
     fi
     sleep 1
