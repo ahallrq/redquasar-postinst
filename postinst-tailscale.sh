@@ -31,14 +31,14 @@ fi
 FULL_AUTH_URL="$AUTH_URL/$LOGIN_KEY"
 
 # Generate QR code for the URL
-qrencode -o /tmp/qr_code.png "$FULL_URL"
+qrencode -o /tmp/qr_code.png "$FULL_AUTH_URL"
 
 # Clean up the temp file
 rm "$TEMP_FILE"
 
 yad --image="/tmp/qr_code.png" \
     --title="Tailscale Login" \
-    --text="To authenticate and connect to the Tailscale network, scan the QR code or visit:\n$FULL_URL" \
+    --text="To authenticate and connect to the Tailscale network, scan the QR code or visit:\n$FULL_AUTH_URL" \
     --timeout=$TIMEOUT \
     --timeout-indicator=bottom \
     --no-escape --no-buttons --center &
