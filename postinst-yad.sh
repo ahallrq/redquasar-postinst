@@ -9,21 +9,21 @@ export YAD_PARAMS="--on-top --center"
 export YAD_PROGLOG="--enable-log --log-expanded --log-height=400"
 
 function yad_progress() {
-    yad --progress --title="$1" --text="$2" --image="$3" --percentage=0 $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE --width=$YAD_WIDTH
+    yad --progress --title="$1" --text="$2" --image="$3" --percentage=0 $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE --width=$YAD_WIDTH $@
 }
 
 function yad_progress_log() {
-    yad --progress --title="$1" --text="$2" --image="$3" --percentage=0 $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE $YAD_PROGLOG --width=$YAD_WIDTH
+    yad --progress --title="$1" --text="$2" --image="$3" --percentage=0 $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE $YAD_PROGLOG --width=$YAD_WIDTH $@
 }
 
 function yad_progress_pulsate() {
-    yad --progress --title="$1" --text="$2" --image="$3" --pulsate --hide-text $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE --width=$YAD_WIDTH
+    yad --progress --title="$1" --text="$2" --image="$3" --pulsate --hide-text $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE --width=$YAD_WIDTH $@
 }
 
 function yad_progress_pulsate_log() {
-    yad --progress --title="$1" --text="$2" --image="$3" --pulsate --hide-text $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE $YAD_PROGLOG --width=$YAD_WIDTH
+    yad --progress --title="$1" --text="$2" --image="$3" --pulsate --hide-text $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE $YAD_PROGLOG --width=$YAD_WIDTH $@
 }
 
 function yad_message_ok() {
-    yad --image "$3" --title "$1" --button=Ok:0 --text "$2" $YAD_PARAMS --width="$YAD_WIDTH" 
+    yad --image "$3" --title "$1" --button=Ok:0 --escape-ok --text "$2" $YAD_PARAMS --width="$YAD_WIDTH" $@
 }
