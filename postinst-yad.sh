@@ -17,11 +17,11 @@ function yad_progress_log() {
 }
 
 function yad_progress_pulsate() {
-    yad --progress --title="$1" --text="$2" --image="$3" --pulsate $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE --width=$YAD_WIDTH
+    yad --progress --title="$1" --text="$2" --image="$3" --pulsate --hide-text $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE --width=$YAD_WIDTH
 }
 
 function yad_progress_pulsate_log() {
-    yad --progress --title="$1" --text="$2" --image="$3" --pulsate $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE $YAD_PROGLOG --width=$YAD_WIDTH
+    yad --progress --title="$1" --text="$2" --image="$3" --pulsate --hide-text $YAD_AUTOKILLCLOSE $YAD_PARAMS $YAD_NOCLOSE $YAD_PROGLOG --width=$YAD_WIDTH
 }
 
 function yad_message_ok() {
