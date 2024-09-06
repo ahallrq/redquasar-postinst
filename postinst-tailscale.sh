@@ -49,7 +49,7 @@ while kill -0 $PID 2>/dev/null; do
     tailscale status | grep "Logged out."
     if [ $? -ne 0 ]; then
         killall -9 yad
-        yad_message_ok "Tailscale Login Successful" "Successfully logged into the Tailscale network" "dialog-info" &
+        yad_message_ok "Tailscale Login Successful" "Successfully logged into the Tailscale network" "dialog-info"
         exit 0
     fi
     sleep 1
