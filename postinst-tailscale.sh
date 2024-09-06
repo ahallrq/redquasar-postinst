@@ -24,7 +24,7 @@ done
 
 killall -9 yad
 
-if [ ! -z "$LOGIN_KEY" ]; then
+if [ -z "$LOGIN_KEY" ]; then
         yad_message_ok "Error" "Failed to retrieve Tailscale login URL within timeout" "dialog-error" && exit 1
 fi
 
