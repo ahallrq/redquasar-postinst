@@ -39,29 +39,20 @@ START_TIME=$(date +%s)
 # Clean up the temp file
 rm "$TEMP_FILE"
 
-(
-while true; do
-    # Check if timeout is reached
-    CURRENT_TIME=$(date +%s)
-    ELAPSED_TIME=$(( CURRENT_TIME - START_TIME ))
-
-    if [ $ELAPSED_TIME -ge $TIMEOUT ]; then
-        pkill tailscale
-        exit 1
-    fi
-
-    tailscale status | grep "Logged out."
-    if [ ! -z $? ]; do
-        exit 0
-    fi
-
-    sleep 1
-done
-) | yad --image="/tmp/qr_code.png" \
+yad --image="/tmp/qr_code.png" \
     --title="Tailscale Login" \
     --text="To authenticate, visit:\n$FULL_URL" \
     --timeout=$TIMEOUT \
     --timeout-indicator=bottom \
-    --no-escape --no-buttons || yad --image="dialog-error" --title="Tailscale Login Failed" --text="Failed to connect and log into the Tailscale network" --escape-ok --button=OK && exit 1
+    --no-escape --no-buttons &
+
+(
+    while kill -0 $PID 2>/dev/null; do
+        tailscale status | grep "Logged out."
+        if [ ! -z $? ]; do
+            exit 0
+        fi
+    done
+) || yad --image="dialog-error" --title="Tailscale Login Failed" --text="Failed to connect and log into the Tailscale network" --escape-ok --button=OK && exit 1
 
 
