@@ -13,7 +13,7 @@ TIMEOUT=120
 START_TIME=$(date +%s)
 
 
-yad_progress_pulsate "Tailscale" "Preparing to connect to Tailscale." "clock" --timeout=20
+yad_message_ok "Tailscale" "Preparing to connect to Tailscale." "clock" --timeout=20 --no-buttons --no-escape
 PID=$!
 
 (
