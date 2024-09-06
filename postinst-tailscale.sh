@@ -15,7 +15,7 @@ AUTH_URL="https://login.tailscale.com/a"
 yad_message_ok "Tailscale" "Preparing to connect to Tailscale." "clock" --timeout=20 --no-buttons --no-escape
 PID=$!
 
-while kill -0 $PID 2>/dev/null && [ ! -z "$LOGIN_KEY" ]; do
+while kill -0 $PID 2>/dev/null && [ -z "$LOGIN_KEY" ]; do
     LOGIN_KEY=$(grep -oP '(?<=https://login.tailscale.com/a/)[a-zA-Z0-9]+' "$TEMP_FILE")
 
     # Sleep briefly to avoid busy looping
