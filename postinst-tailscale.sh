@@ -12,7 +12,7 @@ script -fqc 'tailscale up --accept-routes --timeout 130s' "$TEMP_FILE" &
 TIMEOUT=120
 AUTH_URL="https://login.tailscale.com/a"
 
-yad_message_ok "Tailscale" "Preparing to connect to Tailscale." "clock" --timeout=20 --no-buttons --no-escape
+yad_message_ok "Tailscale" "Preparing to connect to Tailscale." "clock" --timeout=20 --no-buttons --no-escape &
 PID=$!
 
 while kill -0 $PID 2>/dev/null && [ -z "$LOGIN_KEY" ]; do
